@@ -79,8 +79,12 @@
             }
         }
         if (nextIndex >= 0) {
-            self.interactionController = [UIPercentDrivenInteractiveTransition new];
-            self.tabBarController.selectedIndex = nextIndex;
+            if (![self respondsToSelector:@selector(tabBarController:shouldSelectViewController:)] ||
+                [self tabBarController:self.tabBarController shouldSelectViewController:self.tabBarController.viewControllers[nextIndex]]) {
+                // Switch only if `tabBarController:shouldSelectViewController` is not implemented or returns YES
+                self.interactionController = [UIPercentDrivenInteractiveTransition new];
+                self.tabBarController.selectedIndex = nextIndex;
+            }
         }
     } else if (recognizer.state == UIGestureRecognizerStateChanged) {
         CGFloat translationX = [recognizer translationInView:view].x;
