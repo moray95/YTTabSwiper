@@ -11,5 +11,6 @@
 @interface YTTabSwiper : NSObject<UITabBarControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet UITabBarController* tabBarController;
+@property (assign, nonatomic) BOOL swipeEnabled;
 
 @end

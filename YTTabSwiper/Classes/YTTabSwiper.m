@@ -27,8 +27,17 @@
     UIPanGestureRecognizer* recognizer = [[YTTabSwipingGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
     recognizer.maximumNumberOfTouches = 1;
     recognizer.delegate = self;
-    [tabBarController.view addGestureRecognizer:recognizer];
-    _panRecognizer = recognizer;
+    self.panRecognizer = recognizer;
+    self.swipeEnabled = YES;
+}
+
+- (void)setSwipeEnabled:(BOOL)swipeEnabled {
+    _swipeEnabled = swipeEnabled;
+    if (swipeEnabled) {
+      [self.tabBarController.view addGestureRecognizer:self.panRecognizer];
+    } else {
+      [self.tabBarController.view removeGestureRecognizer:self.panRecognizer];
+    }
 }
 
 #pragma mark - UITabBarControllerDelegate
